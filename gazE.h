@@ -4,13 +4,13 @@
 //#include"zapiski.h"
 
 using namespace std;
-class gazyDane :public gazy // tu dziedziczy
+class gazyDane :public gazy 
 
 {
     friend class ciagi_wyrazow;
-    float LHVE, LHVLS, LHVW; // atrybut musi byæ przysloniety bo inaczej ci klasa nie odziedziczy
+    float LHVE, LHVLS, LHVW;
     public:
-    float dane_gazy_wz(char znaczek); // tutaj  znak sterujacy :)
+    float dane_gazy_wz(char znaczek); 
 
 
 };
