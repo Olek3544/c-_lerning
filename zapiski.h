@@ -11,11 +11,11 @@ string dysk_baza, lacznik, miesiac, koncowkaPlan_txt , koncowkarealizacja_txt, k
 // above non used variables do not worry
 string tablica_wyrazow[7] = {"D:\\olko", "\\", "_plan.txt", "_real.txt", "_bills.txt", "_fuel.txt"};
 string  path_names; // returned value :)
-// tablica wyrazów 7 jest wczytywana
+
 string dysk_baza1 = "space_echo";
 string golden_dust[4] = {"Dream ", "Go ", "Have "};
 
-public: // here is the variable sever :)
+public: 
     string path_plan(float strs3, float mcpl);
     string path_real();
     string path_bills();
@@ -28,6 +28,4 @@ public: // here is the variable sever :)
     void graTypa();
     void findFiles();
 };
-//ofstream plikiB; // zapis do pliku :)
-//ifstream plikiA; // odczyt z plików dla innych kals te¿
 
