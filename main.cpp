@@ -44,7 +44,7 @@ public:
             cout << "Cos inne  \n";
             ciagi_wyrazow al1;
            // al1.graTypa();
-          //  al1.nazwa_miejsca1();  // pokazanie czegoœæ
+          //  al1.nazwa_miejsca1(); 
           // pathnum2 =  al1.nazwa_miejsca2();
          //  pathnum3 = al1.nazwa_miejsca3();
           // pathnum4  = al1.nazwa_miejsca4();
