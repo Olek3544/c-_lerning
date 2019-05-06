@@ -2,7 +2,7 @@
 
 
 float gazyDane::dane_gazy_wz(char znaczek)
-{ // funkcja z baz¹ gazów
+{ 
     float LHVE = 35500;
     float LHVLS =27900;
     float LHVLW = 31000;
@@ -12,7 +12,7 @@ float gazyDane::dane_gazy_wz(char znaczek)
     if(znaczek=='1')
     {
 
-        wprowadzanie_dancyh(LHVE);  // tu trza ładować znowu wartosc opałowa gazów :(
+        wprowadzanie_dancyh(LHVE);  
 
     }
     if(znaczek=='2')
