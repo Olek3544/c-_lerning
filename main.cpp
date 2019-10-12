@@ -1,124 +1,134 @@
+﻿
 
-#include"obliczenia.h"
-#include"zapisy.h"
+#include<limits>
 #include <iostream>
-#include<time.h>
-#include"spr.h"
-
-using namespace std;
-void zadaj();
-void zobacz(void *y1, void *y2);
-class sterownia {
-char znaKK_con;
-public:
-    void zmieniarka();
-    void welcomeF();
-    sterownia();
-};
-sterownia::sterownia()
-{
-
-    welcomeF();
-}
-void sterownia::zmieniarka()
-{
-    cout << "Wprowadza co chcesz zrobic \n";
-    do
-    {
-    znaKK_con = getchar();
-    if(znaKK_con=='1')
-    {// wywoluje plan
-    obliczenia zamek1;
-    zamek1.czesc_1_plan(znaKK_con);
-    // załadowana wartość
-    }
-    else if(znaKK_con=='2')
-    {// wywoluje  realizacje
-    obliczenia zamek1;
-    zamek1.czesc_1_plan(znaKK_con);
-    }
-    else if(znaKK_con=='3')
-    { // wywoluje spis rachunków
-    obliczenia zamek1;
-    zamek1.czesc_3_rachunki(znaKK_con);
-    }
-    else if(znaKK_con=='4')
-    { // wywoluje spis paliwa
-    obliczenia zamek1;
-    zamek1.czesc_3_rachunki(znaKK_con);
-    }
-    else if(znaKK_con=='0')
-    { // tworzy folder
-    zapisy stw_folder;
-    stw_folder.utworz_folder();}
-    else {
-        cout << "Nie wybrano zadnej opcji \n";
-    }
-    }while((znaKK_con !='1') and (znaKK_con !='2') and (znaKK_con !='3') and (znaKK_con !='4'));
-}
-void sterownia::welcomeF()
-{
-    int miesiac;
-    cout << "Hello dear user \n";
-    cout << "Press 0 to create folder\n";
-    cout << "Press 1 for planning \n";
-    cout << "Press 2 for enter real month costs  \n";
-    cout << "Press 3 for enter bills form shop and calculate fuel costs \n";
-
-    time_t now = time(0);
-    char* dt =ctime(&now);
-    tm *ltm = localtime(&now);
-
-    cout << "Data " << ltm->tm_mday << "-" << 1+ ltm->tm_mon << "-" << 1900+ltm->tm_year << endl;
-
-    cout << "Godzina " << 1+ltm->tm_hour << ":" << 1+ltm->tm_min <<":" << 1+ltm->tm_sec << endl;
-
-
-}
+#include"bdg_plan.h" 
+#include"rach.h"
+//#include"rach.h"
+using namespace std; 
+#define RACHUNKI 1
+#define PLANR 2 
+#define DOLOWY 3
+#define LICZBA_WYBORU RACHUNKI 
 int main()
 {
-
-sterownia wyst1;
-wyst1.zmieniarka();
-
- return 0;
+	rachunek r1;
+r1.wprowadzRachunek(); 
+	//r1.doSQLbaza(); 
+//	r1.stwzakresDaty(); // nic średnia , suma , ilość rekordów 
+	/*
+	r1.stwzakresDaty();  // tworzy zapytanie o sume z tabeli rachunki od początku dnaego miesiaca do teraz
+	r1.stwzakresDaty(1); // tworzy zapytanie o srednia z tabeli rachunki od początku dnaego miesiaca do teraz
+	r1.stwzakresDaty(1, 1);   // tworzy zapytanie o ilosć rekordów w tabeli z tabeli rachunki od początku dnaego miesiaca do teraz
+	r1.uaktualnijWD();  // tworzy zapytanie o uaktualnienie wb wydatki biezace 
+	*/
+	return 0; 
 }
-void zadaj()
+#if(LICZBA_WYBORU == RACHUNKI)
+
+
+#elif(LICZBA_WYBORU ==DOLOWY )
+bool checkInputData(int &liczba)
 {
-    char znaKK_con;
-    int liczna;
 
-do
-{
-    cout << "podaj znak \n";
-    znaKK_con=getchar();
- cout << "Wykonuje do kiedy nie wpiszesz 1 lub 2 \n";
-        if(znaKK_con=='1') //||(znaKK_con=='3'))
-        {
-            cout << "Wpr jednen lub trzy kolwa \n";
+	cin >> liczba;
+	if (cin.fail())
+	{
+		cin.clear();
+		//cin.ignore(numeric_limits<streamsize>::max) '\n';
+		cin.ignore();
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 
-        }
-        else if (znaKK_con=='2')
-        {
-          cout << "Wpr dwa \n";
-        }
-        else
-        {
-            cout << "Nie prwawidlowy znak, prosze podaj prawidlowy znak \n";
-        }
-
-}while((znaKK_con !='1') and (znaKK_con !='2'));
-    cout << "Jestem po za petla \n";
-    void *w1;  void *w2; int *p1; int *p2;
-    w1 = p1;
-    w2 = p2;
 
 }
-void zobacz(void *y1, void *y2)
+// dla tabeli 
+bool checkTableInput(int *wsk_table)
 {
-int x1=4; int x2=6;
-int *wx1 = &x1;
-int *wx2 = &x2;
-y1 = wx1;
-y2 = wx2;
+	for (int i = 0; i < 3; i++)
+	{
+		cin >> *(wsk_table + i);
+		if (cin.fail())
+		{
+			cin.clear();
+			//cin.ignore(numeric_limits<streamsize>::max) '\n';
+			cin.ignore();
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
 }
+char *tr(char *str)
+{
+	static char buff[256];
+	char cp[] = "\245\206\251\210\344\242\230\276\253\244\217\250\235\343\340\227\275\215ąćęłńóśżźĄĆĘŁŃÓŚŻŹ";
+	if (strlen(str) >= sizeof(buff)) return str;
+	char *bf = buff;
+	while (*str)
+	{
+		char *pos = strchr(cp + 18, *str);
+		*(bf++) = pos ? *(pos - 18) : *str;
+		++str;
+	}
+	*bf = 0;
+	return buff;
+}
+#define RACHUNKI 1
+#define PLANR 2 
+int main()
+{
+	//plan p1;
+	//p1.nazwaMiesiaca(); 
+	//p1.generatorPytan('2'); 
+	//p1.inSQLdata();
+	//p1.entshdane();
+	//realizacja r1;
+	//r1.entshdane(); 
+	/*rachunek ra1;
+	ra1.sdrach();*/
+	//string napis = "Zażółć gęślą jaźń";
+	//char *z = 'ś';
+	//cout << tr(z) << endl;
+	//bdg_plan plan; 
+	//plan.sklejka();
+	/*plan.enterData();
+	plan.showData(); */
+	string pomoc;
+	//rachunek rach1;
+	//rach1.bazaTabel1;
+	//pomoc = plan.sklejka(); 
+	//puts("wynik dzilania sklejki \n");
+	//cout << pomoc << endl; 
+
+	/*int x;  int Tablica[3];
+	int *wsk_tab = &Tablica[0];
+
+	do
+	{
+		cout << "Podaj x \n";
+	} while (checkInputData(x) == false);
+	cout << "Podales liczbe  " << x << endl;
+	for (int i = 0; i < 3; i++)
+	{
+		do
+		{
+			cout << "Podaj element tabeli  \n";
+		} while (checkInputData(Tablica[i]) == false);
+		cout << "Podales " << Tablica[i] << endl;
+	}
+	//cout << "Podales liczbe  " << x << endl; */
+	return 0;
+}
+#endif // 
+
+
+
+
